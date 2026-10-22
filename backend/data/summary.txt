@@ -1,0 +1,12 @@
+### Summary overview
+My name is Jeffy Madari. I architect the future — at the intersection of Cloud, AI, and Enterprise Engineering.
+ 
+With 20+ years of experience across Enterprise Architecture, Cloud Transformation and AI-driven product delivery, I partner with business and technology leaders to turn complex challenges into scalable, resilient, and intelligent systems.
+ 
+As Associate Director of Architecture at Optum, I lead architecture strategy across the Prospective Portfolio — driving cloud-native modernization, governance, and AI adoption at enterprise scale. I've pioneered Kafka-based integration frameworks adopted enterprise-wide, led full Azure cloud migrations using the Well-Architected Framework, eliminated legacy licensing costs through re-architecture, and delivered 25–50% improvements in cloud cost and migration throughput.
+ 
+What I bring: → Enterprise & Solution Architecture (Azure, Cloud-Native, Distributed Systems, Event Driven) → Gen AI, Agentic AI & AI/ML Platform Strategy → Cloud Migration, Cost Optimization → DevSecOps, Governance & Engineering Excellence → Cross-functional Leadership & Technical Mentorship
+ 
+I believe great architecture is invisible — it enables the business to move fast, safely, and at scale.
+ 
+Open to conversations on enterprise architecture, AI strategy, and cloud transformation.

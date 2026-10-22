@@ -1,0 +1,26 @@
+{
+  "full_name": "Jeffy Madari",
+  "name": "Jeffy",
+  "current_role": "Principal Engineer, TLCP at Optum (UnitedHealth Group)",
+  "location": "Hyderabad, India",
+  "email": "jeffymadari@gmail.com",
+  "linkedin": "linkedin.com/in/jeffy-madari",
+  "specialties": [
+    "Enterprise Architecture Strategy & Governance (TOGAF 9.1, Architecture Review Board Chair)",
+    "AI-Infused Solution Design, Agentic AI & Responsible AI Governance",
+    "Cloud-Native Architecture on Azure & AWS (Well-Architected Framework, Cloud Migration, FinOps)",
+    "Event-Driven Architecture with Apache Kafka & Microservices",
+    "Enterprise Integration, RESTful API Design & API Gateway",
+    "Multi-Year Technology Roadmaps & Target Architecture",
+    "DevSecOps, CI/CD & Platform Engineering",
+    "Healthcare IT"
+  ],
+  "years_experience": 26,
+  "education": [
+    {
+      "degree": "Bachelor's Degree in Commerce",
+      "institution": "University of Mumbai",
+      "year": "1999"
+    }
+  ]
+}

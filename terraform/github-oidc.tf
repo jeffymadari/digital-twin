@@ -43,7 +43,12 @@ resource "aws_iam_role" "github_actions" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:${var.github_repository}:*"
+            # GitHub may send the sub claim as "repo:owner/repo:..." or, with immutable IDs,
+            # "repo:owner@<owner_id>/repo@<repo_id>:..." - allow both
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:${var.github_repository}:*",
+              "repo:${split("/", var.github_repository)[0]}@*/${split("/", var.github_repository)[1]}@*:*"
+            ]
           }
         }
       }

@@ -9,6 +9,7 @@ import uuid
 from datetime import datetime
 import boto3
 from botocore.exceptions import ClientError
+from openai import OpenAI
 from context import prompt
 
 # Load environment variables
@@ -34,6 +35,11 @@ bedrock_client = boto3.client(
 
 # Bedrock model selection - see Q42 on https://edwarddonner.com/faq for more
 BEDROCK_MODEL_ID = os.getenv("BEDROCK_MODEL_ID", "global.amazon.nova-2-lite-v1:0")
+
+# OpenAI fallback - used when Bedrock is throttled (e.g. daily token quota reached)
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
 # Memory storage configuration
 USE_S3 = os.getenv("USE_S3", "false").lower() == "true"
@@ -103,6 +109,17 @@ def save_conversation(session_id: str, messages: List[Dict]):
             json.dump(messages, f, indent=2)
 
 
+def call_openai(conversation: List[Dict], user_message: str) -> str:
+    """Fallback: call OpenAI with conversation history"""
+    messages = [{"role": "system", "content": prompt()}]
+    for msg in conversation[-50:]:
+        messages.append({"role": msg["role"], "content": msg["content"]})
+    messages.append({"role": "user", "content": user_message})
+
+    response = openai_client.chat.completions.create(model=OPENAI_MODEL, messages=messages)
+    return response.choices[0].message.content
+
+
 def call_bedrock(conversation: List[Dict], user_message: str) -> str:
     """Call AWS Bedrock with conversation history"""
     
@@ -146,7 +163,10 @@ def call_bedrock(conversation: List[Dict], user_message: str) -> str:
         
     except ClientError as e:
         error_code = e.response['Error']['Code']
-        if error_code == 'ValidationException':
+        if error_code == 'ThrottlingException' and openai_client:
+            print(f"Bedrock throttled, falling back to OpenAI: {e}")
+            return call_openai(conversation, user_message)
+        elif error_code == 'ValidationException':
             # Handle message format issues
             print(f"Bedrock validation error: {e}")
             raise HTTPException(status_code=400, detail="Invalid message format for Bedrock")

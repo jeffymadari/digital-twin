@@ -57,3 +57,10 @@ variable "default_aws_region_bedrock" {
   type        = string
   default     = "us-east-1"
 }
+
+variable "openai_api_key" {
+  description = "OpenAI API key used as a fallback when Bedrock is throttled"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
